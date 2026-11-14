@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>egzersiz #003 - ubeydenin osint egzersizleri</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ece9d8;
+            color: #000000;
+            font-family: "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: none;
+            font-smooth: never;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #245edc;
+            background-image: linear-gradient(
+                to bottom,
+                #3d76ef 0%,
+                #245edc 50%,
+                #1a48bc 100%
+            );
+            border-bottom: 1px solid #113285;
+            box-shadow: inset 0 1px 0 #739eff, inset 0 -1px 0 #113285;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            text-shadow: 1px 1px 0px #113285;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .site-logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        .site-title {
+            font-size: 21px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .xp-back-btn {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #ece9d8 100%);
+            border: 1px solid #245edc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0, 0, 0, 0.15);
+            padding: 6px 14px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+            text-shadow: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        .xp-back-btn:hover {
+            background: linear-gradient(to bottom, #fffae3 0%, #f4ecbe 100%);
+            border-color: #e68b2c;
+            box-shadow: 0 0 4px rgba(230, 139, 44, 0.6);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 36px auto;
+            padding: 0 24px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .exercise-heading {
+            font-size: 24px;
+            font-weight: bold;
+            color: #245edc;
+            margin-bottom: 16px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+
+        .xp-textbox {
+            background-color: #ffffff;
+            border: 1px solid #7f9db9;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+            border-radius: 3px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+
+        .desc-text {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0;
+            image-rendering: pixelated;
+        }
+
+        .success-banner {
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 10px 16px;
+            border-radius: 3px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 16px;
+            display: none;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .question-row:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .question-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .answer-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="text"] {
+            width: 160px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #7f9db9;
+            border-radius: 2px;
+            padding: 4px 8px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #245edc;
+            box-shadow: 0 0 3px rgba(36, 94, 220, 0.5);
+        }
+
+        input[type="text"]:disabled, button:disabled {
+            background-color: #ece9d8;
+            color: #6d6d6d;
+            border-color: #aca899;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        button {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #ece9d8 100%);
+            color: #000000;
+            border: 1px solid #245edc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0, 0, 0, 0.15);
+            padding: 4px 12px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        button:hover:not(:disabled) {
+            background: linear-gradient(to bottom, #fffae3 0%, #f4ecbe 100%);
+            border-color: #e68b2c;
+            box-shadow: 0 0 4px rgba(230, 139, 44, 0.6), inset 0 1px 0 #ffffff;
+        }
+
+        button:active:not(:disabled) {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #e3dfd4 100%);
+            border-color: #245edc;
+        }
+
+        .status-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            display: none;
+            image-rendering: pixelated;
+        }
+
+        .hint-text {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #222222;
+        }
+
+        .heart-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-left: 2px;
+            image-rendering: pixelated;
+        }
+
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .xp-video-frame {
+            background-color: #ffffff;
+            border: 1px solid #7f9db9;
+            border-radius: 2px;
+            padding: 3px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+            max-width: 100%;
+        }
+
+        .xp-video-frame video {
+            display: block;
+            max-width: 100%;
+            max-height: 480px;
+            height: auto;
+        }
+
+        .video-link-container {
+            border-top: 1px solid #aca899;
+            box-shadow: inset 0 1px 0 #ffffff;
+            padding-top: 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .video-btn {
+            background: linear-gradient(to bottom, #ece9d8 0%, #dfdccf 100%);
+            color: #6d6d6d;
+            border: 1px solid #aca899;
+            border-radius: 4px;
+            padding: 6px 16px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: default;
+            display: inline-block;
+            margin-bottom: 6px;
+            text-decoration: none;
+            box-shadow: none;
+        }
+
+        .puzzle-date {
+            font-size: 12px;
+            color: #555555;
+            font-weight: normal;
+        }
+
+        footer {
+            background-color: #ece9d8;
+            border-top: 1px solid #aca899;
+            box-shadow: inset 0 1px 0 #ffffff;
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #333333;
+        }
+
+        footer a {
+            color: #245edc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo.png" alt="Logo" class="site-logo" onerror="this.style.display='none'">
+            <a href="index.html" class="site-title">ubeydenin osint egzersizleri</a>
+        </div>
+        <a href="index.html" class="xp-back-btn"><img src="Back.png" alt="" class="back-icon" onerror="this.style.display='none'">ana sayfa</a>
+    </header>
+
+    <main class="container">
+
+        <h1 class="exercise-heading">EGZERSİZ #3</h1>
+
+        <div class="xp-textbox">
+            <div id="success-banner" class="success-banner">
+                tebrikler!
+            </div>
+
+            <p class="desc-text"><img src="question.png" alt="question" class="info-icon" onerror="this.style.display='none'"><span>manzara çok güzel değil mi? şunları bul:</span></p>
+
+            <div class="question-row">
+                <div class="question-text">a) bu videoyu saniyesine kadar saat kaçta çektim?</div>
+                <div class="answer-controls">
+                    <input type="text" id="answer-a" placeholder="örn: 11:12:48" onkeypress="if(event.key==='Enter') checkAnswer('a')">
+                    <button id="btn-a" onclick="checkAnswer('a')">kontrol et</button>
+                    <img id="icon-a" class="status-icon" alt="status">
+                </div>
+            </div>
+
+            <div class="question-row">
+                <div class="question-text">b) videonun ilk saniyesinde gözüken kişi kim?</div>
+                <div class="answer-controls">
+                    <input type="text" id="answer-b" placeholder="örn: ad soyad" onkeypress="if(event.key==='Enter') checkAnswer('b')">
+                    <button id="btn-b" onclick="checkAnswer('b')">kontrol et</button>
+                    <img id="icon-b" class="status-icon" alt="status">
+                </div>
+            </div>
+
+            <div class="question-row">
+                <div class="question-text">c) bu çimenlerin altındaki kütüphanenin adı ne?</div>
+                <div class="answer-controls">
+                    <input type="text" id="answer-c" placeholder="örn: istanbul kütüphanesi" onkeypress="if(event.key==='Enter') checkAnswer('c')">
+                    <button id="btn-c" onclick="checkAnswer('c')">kontrol et</button>
+                    <img id="icon-c" class="status-icon" alt="status">
+                </div>
+            </div>
+
+            <p class="hint-text">kolay gelsin <img src="heart.png" alt="heart" class="heart-icon" onerror="this.style.display='none'"></p>
+        </div>
+
+        <div class="video-wrapper">
+            <div class="xp-video-frame">
+                <video controls width="100%">
+                    <source src="20260510_154511.mp4" type="video/mp4">
+                    Tarayıcınız video etiketini desteklemiyor.
+                </video>
+            </div>
+        </div>
+
+        <div class="video-link-container">
+            <div><span class="video-btn">video çözümü henüz yok</span></div>
+            <div class="puzzle-date">bulmaca tarihi: 10 mayıs 2026</div>
+        </div>
+
+    </main>
+
+    <footer>
+        &copy;  2026 ubeyde yasir ergat | iletişim: <a href="mailto:firtina.ubik@gmail.com">firtina.ubik@gmail.com</a>
+    </footer>
+
+    <script>
+        const correctAnswers = {
+            'a': ["15.45.11", "15:45:11", "15 45 11"],
+            'b': ["tahir büyükakın", "tahir buyukakin"],
+            'c': ["alev alatlı kütüphanesi", "alev alatli kutuphanesi", "alev alatlı", "alev alatli"]
+        };
+
+        // turkce karakterleri ve buyuk/kucuk harf farklarini yok sayar
+        function normalize(str) {
+            return str
+                .trim()
+                .toLocaleLowerCase('tr')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/ı/g, 'i')
+                .replace(/\s+/g, ' ');
+        }
+
+        const solvedQuestions = new Set();
+        const totalQuestions = 3;
+
+        function checkAnswer(qKey) {
+            const inputField = document.getElementById(`answer-${qKey}`);
+            const submitBtn = document.getElementById(`btn-${qKey}`);
+            const iconImg = document.getElementById(`icon-${qKey}`);
+            const userVal = normalize(inputField.value);
+
+            if (userVal === "") {
+                iconImg.style.display = "none";
+                return;
+            }
+
+            iconImg.style.display = "block";
+
+            if (correctAnswers[qKey].some(a => normalize(a) === userVal)) {
+                iconImg.src = "check.png";
+                inputField.disabled = true;
+                submitBtn.disabled = true;
+
+                if (!solvedQuestions.has(qKey)) {
+                    solvedQuestions.add(qKey);
+                }
+
+                if (solvedQuestions.size === totalQuestions) {
+                    document.getElementById('success-banner').style.display = "block";
+                }
+            } else {
+                iconImg.src = "wrong.png";
+            }
+        }
+    </script>
+
+</body>
+</html>

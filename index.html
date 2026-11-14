@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ubeydenin osint egzersizleri</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ece9d8;
+            color: #000000;
+            font-family: "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: none;
+            font-smooth: never;
+        }
+
+        header {
+            background-color: #245edc;
+            background-image: linear-gradient(
+                to bottom,
+                #3d76ef 0%,
+                #245edc 50%,
+                #1a48bc 100%
+            );
+            border-bottom: 1px solid #113285;
+            box-shadow: inset 0 1px 0 #739eff, inset 0 -1px 0 #113285;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            text-shadow: 1px 1px 0px #113285;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .site-logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        .site-title {
+            font-size: 21px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .intro-section {
+            border-bottom: 1px solid #aca899;
+            box-shadow: 0 1px 0 #ffffff;
+            padding: 26px 24px 22px 24px;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 14px;
+            color: #000000;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .intro-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            flex-shrink: 0;
+            image-rendering: pixelated;
+        }
+
+        .intro-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .exercises-section {
+            padding: 30px 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .xp-card {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #ece9d8 100%);
+            border: 1px solid #003c74;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #000000;
+            transition: all 0.1s ease;
+        }
+
+        .xp-card:hover {
+            background: linear-gradient(to bottom, #fffae3 0%, #f4ecbe 100%);
+            border-color: #e68b2c;
+            box-shadow: 0 0 5px rgba(230, 139, 44, 0.5), inset 0 1px 0 #ffffff;
+        }
+
+        .xp-card:active {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #e3dfd4 100%);
+            border-color: #003c74;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            padding: 11px 9px 9px 11px;
+        }
+
+        .xp-card.disabled {
+            background: linear-gradient(to bottom, #f5f5f0 0%, #e8e6d9 100%);
+            border-color: #aca899;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .xp-card.disabled:hover {
+            background: linear-gradient(to bottom, #f5f5f0 0%, #e8e6d9 100%);
+            border-color: #aca899;
+            box-shadow: none;
+        }
+
+        .card-img-box {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: #ffffff;
+            border: 1px solid #7f9db9;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 2px;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-img-box img.bottom-align {
+            object-position: bottom;
+        }
+
+        .card-img-box img.pan-down-4 {
+            object-position: center 70%;
+        }
+
+        .card-title {
+            margin-top: 11px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #245edc;
+            text-align: center;
+        }
+
+        .xp-card:not(.disabled):hover .card-title {
+            text-decoration: underline;
+            color: #0054e3;
+        }
+
+        .xp-card.disabled .card-title {
+            color: #6d6d6d;
+        }
+
+        .card-subtitle {
+            margin-top: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #222222;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .star-rating {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .star-rating img {
+            width: 13px;
+            height: 13px;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        @media (max-width: 850px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+                footer {
+            background-color: #ece9d8;
+            border-top: 1px solid #aca899;
+            box-shadow: inset 0 1px 0 #ffffff;
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #333333;
+        }
+
+        footer a {
+            color: #245edc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="header-left">
+            <img src="logo.png" alt="Logo" class="site-logo" onerror="this.style.display='none'">
+            <span class="site-title">ubeydenin osint egzersizleri</span>
+        </a>
+    </header>
+
+    <section class="intro-section">
+        <div class="container">
+            <p class="intro-text">
+                <img src="qmark.png" alt="" class="intro-icon" onerror="this.style.display='none'">
+                <span>osint (open source intelligence - açık kaynak istihbaratı): kamuya açık ve herkesin erişebileceği yasal bilgi kaynaklarından (sosyal medya, haber siteleri, resmi kayıtlar, açık web siteleri vb.) veri toplanması, bu verilerin analiz edilmesi ve anlamlı bilgilere dönüştürülmesi sürecidir. genellikle siber güvenlik, siber tehdit avcılığı, gazetecilik ve araştırmacılık alanlarında kullanılır.</span>
+            </p>
+            <p class="intro-text">
+                <img src="Forward.png" alt="" class="intro-icon" onerror="this.style.display='none'">
+                <span>bu sitede kendi hazırladığım osint bulmacalarını çözebilirsiniz :) iyi eğlenceler</span>
+            </p>
+        </div>
+    </section>
+
+    <main class="exercises-section">
+        <div class="container">
+            <div class="grid-3">
+
+                <a href="egzersiz1.html" class="xp-card">
+                    <div class="card-img-box">
+                        <img src="egzersiz1.jpg" alt="Egzersiz 1" onerror="this.src='https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">egzersiz #001</div>
+                    <div class="card-subtitle">
+                        <span>zorluk:</span>
+                        <div class="star-rating">
+                            <img src="star-filled.png" alt="star">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="egzersiz2.html" class="xp-card">
+                    <div class="card-img-box">
+                        <img src="egzersiz2.jpg" alt="Egzersiz 2" onerror="this.src='https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">egzersiz #002</div>
+                    <div class="card-subtitle">
+                        <span>zorluk:</span>
+                        <div class="star-rating">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="egzersiz3.html" class="xp-card">
+                    <div class="card-img-box">
+                        <img src="egzersiz3.jpg" alt="Egzersiz 3" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">egzersiz #003</div>
+                    <div class="card-subtitle">
+                        <span>zorluk:</span>
+                        <div class="star-rating">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="egzersiz4.html" class="xp-card">
+                    <div class="card-img-box">
+                        <img src="egzersiz4.jpg" alt="Egzersiz 4" class="pan-down-4" onerror="this.src='https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">egzersiz #004</div>
+                    <div class="card-subtitle">
+                        <span>zorluk:</span>
+                        <div class="star-rating">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                        </div>
+                    </div>
+                </a>
+
+                <a href="egzersiz5.html" class="xp-card">
+                    <div class="card-img-box">
+                        <img src="egzersiz5.jpg" alt="Egzersiz 5" class="bottom-align" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">egzersiz #005</div>
+                    <div class="card-subtitle">
+                        <span>zorluk:</span>
+                        <div class="star-rating">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                            <img src="star-filled.png" alt="star">
+                        </div>
+                    </div>
+                </a>
+
+                <div class="xp-card disabled">
+                    <div class="card-img-box">
+                        <img src="placeholder.jpg" alt="Yakında" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="card-title">yakında</div>
+                    <div class="card-subtitle">
+                        <span style="color: #6d6d6d; font-weight: normal;">...</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy;  2026 ubeyde yasir ergat | iletişim: <a href="mailto:firtina.ubik@gmail.com">firtina.ubik@gmail.com</a>
+    </footer>
+
+</body>
+</html>
