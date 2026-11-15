@@ -344,6 +344,61 @@
             font-weight: normal;
         }
 
+        .puzzle-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #ece9d8 100%);
+            border: 1px solid #245edc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0, 0, 0, 0.15);
+            padding: 6px 14px;
+            font-family: "Comic Sans MS", "Comic Sans Web", "Comic Neue", sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        a.nav-btn:hover {
+            background: linear-gradient(to bottom, #fffae3 0%, #f4ecbe 100%);
+            border-color: #e68b2c;
+            box-shadow: 0 0 4px rgba(230, 139, 44, 0.6), inset 0 1px 0 #ffffff;
+        }
+
+        a.nav-btn:active {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #e3dfd4 100%);
+            border-color: #245edc;
+        }
+
+        .nav-btn.disabled {
+            background: linear-gradient(to bottom, #ece9d8 0%, #dfdccf 100%);
+            border-color: #aca899;
+            color: #6d6d6d;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .nav-btn.disabled img {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            display: block;
+            image-rendering: pixelated;
+        }
+
         footer {
             background-color: #ece9d8;
             border-top: 1px solid #aca899;
@@ -429,6 +484,10 @@
         <div class="video-link-container">
             <div><a href="https://youtu.be/77CzlI64B8U" target="_blank" class="video-btn">video çözümü için tıklayın</a></div>
             <div class="puzzle-date">bulmaca tarihi: 1 kasım 2025</div>
+            <div class="puzzle-nav">
+                <a href="bulmaca1.html" class="nav-btn"><img src="Back.png" alt="" class="nav-icon" onerror="this.style.display='none'">Önceki</a>
+                <a href="bulmaca3.html" class="nav-btn">Sonraki<img src="Forward.png" alt="" class="nav-icon" onerror="this.style.display='none'"></a>
+            </div>
         </div>
 
     </main>
