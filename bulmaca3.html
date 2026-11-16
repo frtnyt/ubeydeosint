@@ -266,6 +266,53 @@
             image-rendering: pixelated;
         }
 
+        .hint-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .hint-row .hint-text {
+            margin-top: 0;
+        }
+
+        .hint-btn {
+            background: linear-gradient(to bottom, #fcfcfc 0%, #ece9d8 100%);
+            color: #000000;
+            border: 1px solid #245edc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0, 0, 0, 0.15);
+            padding: 4px 10px;
+            font-family: "Comic Sans MS", "Comic Sans Web", "Comic Neue", sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .hint-btn:hover {
+            background: linear-gradient(to bottom, #fffae3 0%, #f4ecbe 100%);
+            border-color: #e68b2c;
+            box-shadow: 0 0 4px rgba(230, 139, 44, 0.6), inset 0 1px 0 #ffffff;
+        }
+
+        .hint-btn:active {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #e3dfd4 100%);
+            border-color: #245edc;
+        }
+
+        .hint-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            display: block;
+        }
+
         .video-wrapper {
             display: flex;
             justify-content: center;
@@ -307,9 +354,18 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             margin-bottom: 6px;
             text-decoration: none;
+        }
+
+        .video-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            display: block;
         }
 
         .video-btn:hover {
@@ -408,10 +464,10 @@
 
     <header>
         <div class="header-left">
-            <img src="logo.png" alt="Logo" class="site-logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Logo" class="site-logo">
             <a href="index.html" class="site-title">ubeydenin osint bulmacaları</a>
         </div>
-        <a href="index.html" class="xp-back-btn"><img src="Back.png" alt="" class="back-icon" onerror="this.style.display='none'">ana sayfa</a>
+        <a href="index.html" class="xp-back-btn"><img src="Back.png" alt="" class="back-icon">ana sayfa</a>
     </header>
 
     <main class="container">
@@ -423,7 +479,7 @@
                 tebrikler!
             </div>
 
-            <p class="desc-text"><img src="question.png" alt="question" class="info-icon" onerror="this.style.display='none'"><span>manzara çok güzel değil mi? şunları bul:</span></p>
+            <p class="desc-text"><img src="question.png" alt="question" class="info-icon"><span>manzara çok güzel değil mi? şunları bul:</span></p>
 
             <div class="question-row">
                 <div class="question-text">a) bu videoyu saniyesine kadar saat kaçta çektim?</div>
@@ -452,7 +508,10 @@
                 </div>
             </div>
 
-            <p class="hint-text">kolay gelsin <img src="heart.png" alt="heart" class="heart-icon" onerror="this.style.display='none'"></p>
+            <div class="hint-row">
+                <p class="hint-text">kolay gelsin <img src="heart.png" alt="heart" class="heart-icon"></p>
+                <a href="https://maps.app.goo.gl/iJUSAP5PjCUD4TYb8" target="_blank" rel="noopener" class="hint-btn" id="hint-btn" onclick="setTimeout(function(){document.getElementById('hint-btn').remove();}, 0)"><img src="Search.png" alt="" class="hint-icon">ipucu göster</a>
+            </div>
         </div>
 
         <div class="video-wrapper">
@@ -465,11 +524,11 @@
         </div>
 
         <div class="video-link-container">
-            <div><a href="https://youtu.be/F3pUDL1xQds" target="_blank" class="video-btn">video çözümü için tıklayın</a></div>
+            <div><a href="https://youtu.be/F3pUDL1xQds" target="_blank" class="video-btn"><img src="Windows_Media_Player_9.png" alt="" class="video-icon">video çözümü için tıklayın</a></div>
             <div class="puzzle-date">bulmaca tarihi: 10 mayıs 2026</div>
             <div class="puzzle-nav">
-                <a href="bulmaca2.html" class="nav-btn"><img src="Back.png" alt="" class="nav-icon" onerror="this.style.display='none'">Önceki</a>
-                <a href="bulmaca4.html" class="nav-btn">Sonraki<img src="Forward.png" alt="" class="nav-icon" onerror="this.style.display='none'"></a>
+                <a href="bulmaca2.html" class="nav-btn"><img src="Back.png" alt="" class="nav-icon">Önceki</a>
+                <a href="bulmaca4.html" class="nav-btn">Sonraki<img src="Forward.png" alt="" class="nav-icon"></a>
             </div>
         </div>
 
